@@ -1,5 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import Logo from "/logo.svg";
+import { IoSearch } from "react-icons/io5";
+
 const NavBar = () => {
   const navLinks = (
     <>
@@ -15,42 +17,32 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/touristspots"
+          to="/about"
           className={({ isActive }) =>
             isActive ? "text-primary border border-primary" : "font-bold"
           }
         >
-          ALL TOURISTS SPOTS
+          ABOUT
         </NavLink>
       </li>
       <li>
         <NavLink
-          to="/addtouristspot"
+          to="/services"
           className={({ isActive }) =>
             isActive ? "text-primary border border-primary" : "font-bold"
           }
         >
-          ADD TOURISTS SPOTS
+          SERVICES
         </NavLink>
       </li>
       <li>
         <NavLink
-          to="/mylist"
+          to="/blog"
           className={({ isActive }) =>
             isActive ? "text-primary border border-primary" : "font-bold"
           }
         >
-          MY LIST
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/offers"
-          className={({ isActive }) =>
-            isActive ? "text-primary border border-primary" : "font-bold"
-          }
-        >
-          OFFERS
+          BLOG
         </NavLink>
       </li>
       <li>
@@ -66,9 +58,9 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100 h-20 border-b-2 drop-shadow ">
+    <div className="navbar bg-base-100 h-20 border-b-2 drop-shadow fixed z-50 bg-opacity-90">
       <div className="navbar-start">
-        <div className="dropdown">
+        {/* <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -91,15 +83,53 @@ const NavBar = () => {
           >
             {navLinks}
           </ul>
+        </div> */}
+        <div className="drawer drawer-end lg:hidden">
+          <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content">
+            {/* Page content here */}
+            <label htmlFor="my-drawer-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </label>
+          </div>
+          <div className="drawer-side z-20 ">
+            <label
+              htmlFor="my-drawer-4"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+              {/* Sidebar content here */}
+              {navLinks}
+            </ul>
+          </div>
         </div>
         <Link to="/" className="btn btn-ghost text-xl h-4">
-          <img src={Logo} alt="logo" />
+          <img src={Logo} alt="logo" className="h-full" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
+        <label className="input input-bordered hidden lg:flex items-center gap-2 w-full ">
+          <input type="text" className="grow" placeholder="Search" />
+          <IoSearch />
+        </label>
+        <Link to="/login">Login</Link>
         <label className="swap swap-rotate">
           {/* this hidden checkbox controls the state */}
           <input
