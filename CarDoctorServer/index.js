@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Server Running");
+  res.send("Server is Running");
 });
 
 app.listen(port, () => {
