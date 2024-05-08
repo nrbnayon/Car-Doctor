@@ -18,7 +18,11 @@ const Login = () => {
       const user = result.user;
       console.log(user);
     } catch (error) {
-      setError(error.message);
+      if (error.code === "auth/email-already-in-use") {
+        setError("Email address is already in use. Please log in instead.");
+      } else {
+        setError(error.message);
+      }
       console.error(error);
     }
   };

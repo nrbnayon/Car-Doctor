@@ -8,7 +8,7 @@ const Services = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch("/services.json")
+    fetch("http://localhost:8080/services")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
@@ -58,13 +58,10 @@ const Services = () => {
             </div>
 
             <Link
-              to={{
-                pathname: `/services/${service.title}`,
-                state: { serviceName: service.title },
-              }}
+              to={`/checkout/${service._id}`}
               className="absolute bottom-4 right-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-300"
             >
-              BUY NOW
+              BOOK NOW
             </Link>
           </div>
         ))}

@@ -1,8 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 import Logo from "/logo.svg";
 import { IoSearch } from "react-icons/io5";
+import { useContext } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const NavBar = () => {
+  const { logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+
+  const { user } = useContext(AuthContext);
   const navLinks = (
     <>
       <li>
@@ -37,16 +47,6 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/blog"
-          className={({ isActive }) =>
-            isActive ? "text-primary border border-primary" : "font-bold"
-          }
-        >
-          BLOG
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
           to="/contact"
           className={({ isActive }) =>
             isActive ? "text-primary border border-primary" : "font-bold"
@@ -54,6 +54,20 @@ const NavBar = () => {
         >
           CONTACT
         </NavLink>
+      </li>{" "}
+      <li>
+        {user ? (
+          <NavLink
+            to="/bookings"
+            className={({ isActive }) =>
+              isActive ? "text-secondary border border-primary" : "font-bold"
+            }
+          >
+            MY BOOKINGS
+          </NavLink>
+        ) : (
+          <></>
+        )}
       </li>
     </>
   );
@@ -129,7 +143,27 @@ const NavBar = () => {
           <input type="text" className="grow" placeholder="Search" />
           <IoSearch />
         </label>
-        <Link to="/login">Login</Link>
+        {user ? (
+          <NavLink
+            onClick={handleLogout}
+            // to="/blog"
+            className={({ isActive }) =>
+              isActive ? "text-secondary border border-primary" : "font-bold"
+            }
+          >
+            LogOut
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              isActive ? "text-pink-600 border border-primary" : "font-bold"
+            }
+          >
+            LOGIN
+          </NavLink>
+        )}
+
         <label className="swap swap-rotate">
           {/* this hidden checkbox controls the state */}
           <input
