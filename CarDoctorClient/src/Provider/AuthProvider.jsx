@@ -13,8 +13,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const createUser = async (formData) => {
     setLoading(true);
@@ -63,18 +62,20 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("currentUser:", currentUser);
       setLoading(false);
     });
+
     return () => {
-      return unSubscribe();
+      unSubscribe();
     };
   }, []);
 
   const authInfo = { user, loading, createUser, logIn, logOut };
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

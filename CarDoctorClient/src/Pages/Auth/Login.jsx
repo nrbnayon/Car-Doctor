@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { FaGoogle, FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import LoginImg from "../../assets/images/login/login.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
@@ -10,13 +10,18 @@ const Login = () => {
   const [error, setError] = useState("");
   const { logIn } = useContext(AuthContext);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      const result = await logIn(email, password);
-      const user = result.user;
-      console.log(user);
+      await logIn(email, password);
+      // const user = result.user;
+      // console.log(user);
+
+      navigate(location?.state ? location?.state : "/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setError("Email address is already in use. Please log in instead.");
