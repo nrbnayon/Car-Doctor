@@ -18,9 +18,6 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      // const user = result.user;
-      // console.log(user);
-
       navigate(location?.state ? location?.state : "/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -35,13 +32,13 @@ const Login = () => {
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col md:gap-16 lg:flex-row">
+        <div className="hero-content w-full mx-6  flex-col  lg:flex-row">
           <div className="md:w-1/2">
             <div className="">
               <img src={LoginImg} alt="LoginImg" />
             </div>
           </div>
-          <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
             <h1 className="text-5xl mt-4 text-center font-bold">Login now!</h1>
             <form onSubmit={handleLogin} className="card-body">
               <div className="form-control">
@@ -82,16 +79,16 @@ const Login = () => {
                   <p className="btn-outline w-full text-red-500">{error}</p>
                 )}
               </div>
-              <div className="form-control mt-6">
+              <div className="form-control">
                 <button className="btn btn-primary">Login</button>
               </div>
-              <div className="flex justify-center mt-4">
+              <div className="flex justify-center">
                 <p className="text-sm">New to Car Doctor?</p>
                 <Link to="/register" className="ml-1 text-primary font-bold">
-                  Sign Up
+                  Register Now
                 </Link>
               </div>
-              <div className="divider">OR</div>
+              <div className="divider my-0">OR</div>
 
               <h3 className="text-lg text-center font-semibold">
                 Continue with

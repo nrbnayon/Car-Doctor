@@ -34,22 +34,20 @@ const Register = () => {
       } else if (error.code === "auth/email-already-in-use") {
         setError("The email address is already in use.");
       } else {
-        setError(
-          `An error occurred while registering. Please try again later.${error}`
-        );
+        setError(`An error occurred while registering.${error}`);
       }
     }
   };
 
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col md:gap-16 lg:flex-row">
+      <div className="hero-content flex-col w-full lg:flex-row">
         <div className="md:w-1/2">
           <div className="">
             <img src={LoginImg} alt="LoginImg" />
           </div>
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
           <h1 className="text-3xl md:text-5xl mt-4 text-center font-bold">
             Register now!
           </h1>
@@ -108,10 +106,10 @@ const Register = () => {
                 </button>
               )}
             </div>
-            <div className="form-control mt-6">
+            <div className="form-control ">
               <button className="btn btn-primary">Register</button>
             </div>
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center ">
               <p className="text-sm">Already have an account?</p>
               <Link to="/login" className="ml-1 text-primary font-bold">
                 Login

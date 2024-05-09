@@ -66,7 +66,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-8 p-8 border rounded-lg shadow-lg">
+    <div className="max-w-xl mx-auto my-6 p-8 border rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold mb-4">Book Service: {title}</h3>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

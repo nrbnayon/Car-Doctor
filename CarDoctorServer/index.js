@@ -1,13 +1,22 @@
 const express = require("express");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
+
 const app = express();
+app.use(cookieParser());
 
 const port = process.env.PORT || 5000;
 
 //middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 const uri = process.env.MONGODB;
 
@@ -55,6 +64,33 @@ async function run() {
       const result = await serviceBookingCollection.find(query).toArray();
       res.send(result);
     });
+
+    // jwt token
+    app.post("/jwt", async (req, res) => {
+      const user = req.body;
+      console.log("User token: ", user);
+
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+
+      res
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        })
+        .send({ success: true });
+    });
+
+    //cookie clear
+
+    app.post("/logout", async (req, res) => {
+      const user = req.body;
+      console.log("Logout user", user);
+      res.clearCookie("token", { maxAge: 0 }).send({ success: true });
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
